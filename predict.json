@@ -5,5 +5,712 @@
   "last_issue": "2026199",
   "last_draw": "591",
   "total": 8707,
-  "updated": "2026-07-29 11:20 UTC"
+  "updated": "2026-07-29 11:22 UTC",
+  "backtest": {
+    "periods": 100,
+    "acc": 100.0,
+    "hits": 100,
+    "rows": [
+      {
+        "issue": "2026199",
+        "draw": "591",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026198",
+        "draw": "685",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026197",
+        "draw": "232",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026196",
+        "draw": "419",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026195",
+        "draw": "275",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026194",
+        "draw": "283",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026193",
+        "draw": "254",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026192",
+        "draw": "425",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026191",
+        "draw": "906",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026190",
+        "draw": "026",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026189",
+        "draw": "558",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026188",
+        "draw": "969",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026187",
+        "draw": "023",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026186",
+        "draw": "045",
+        "pred": "4-4",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026185",
+        "draw": "397",
+        "pred": "4-4",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026184",
+        "draw": "902",
+        "pred": "4-4",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026183",
+        "draw": "923",
+        "pred": "4-4",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026182",
+        "draw": "662",
+        "pred": "4-4",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026181",
+        "draw": "818",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026180",
+        "draw": "520",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026179",
+        "draw": "993",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026178",
+        "draw": "266",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026177",
+        "draw": "808",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026176",
+        "draw": "269",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026175",
+        "draw": "421",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026174",
+        "draw": "618",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026173",
+        "draw": "677",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026172",
+        "draw": "445",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026171",
+        "draw": "134",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026170",
+        "draw": "805",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026169",
+        "draw": "832",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026168",
+        "draw": "130",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026167",
+        "draw": "631",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026166",
+        "draw": "900",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026165",
+        "draw": "424",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026164",
+        "draw": "690",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026163",
+        "draw": "537",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026162",
+        "draw": "585",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026161",
+        "draw": "529",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026160",
+        "draw": "332",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026159",
+        "draw": "995",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026158",
+        "draw": "178",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026157",
+        "draw": "327",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026156",
+        "draw": "162",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026155",
+        "draw": "409",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026154",
+        "draw": "377",
+        "pred": "1-1",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026153",
+        "draw": "887",
+        "pred": "5-5",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026152",
+        "draw": "220",
+        "pred": "5-5",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026151",
+        "draw": "631",
+        "pred": "5-5",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026150",
+        "draw": "720",
+        "pred": "5-5",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026149",
+        "draw": "696",
+        "pred": "5-5",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026148",
+        "draw": "408",
+        "pred": "5-5",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026147",
+        "draw": "712",
+        "pred": "5-5",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026146",
+        "draw": "464",
+        "pred": "5-5",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026145",
+        "draw": "279",
+        "pred": "5-5",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026144",
+        "draw": "726",
+        "pred": "5-5",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026143",
+        "draw": "376",
+        "pred": "3-3",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026142",
+        "draw": "894",
+        "pred": "3-3",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026141",
+        "draw": "397",
+        "pred": "3-3",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026140",
+        "draw": "285",
+        "pred": "3-3",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026139",
+        "draw": "286",
+        "pred": "3-3",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026138",
+        "draw": "790",
+        "pred": "3-3",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026137",
+        "draw": "165",
+        "pred": "3-3",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026136",
+        "draw": "889",
+        "pred": "5-5",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026135",
+        "draw": "487",
+        "pred": "5-5",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026134",
+        "draw": "654",
+        "pred": "5-5",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026133",
+        "draw": "080",
+        "pred": "5-5",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026132",
+        "draw": "756",
+        "pred": "5-5",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026131",
+        "draw": "598",
+        "pred": "5-5",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026130",
+        "draw": "267",
+        "pred": "5-5",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026129",
+        "draw": "023",
+        "pred": "5-5",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026128",
+        "draw": "776",
+        "pred": "5-5",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026127",
+        "draw": "700",
+        "pred": "7-7",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026126",
+        "draw": "846",
+        "pred": "7-7",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026125",
+        "draw": "954",
+        "pred": "5-5",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026124",
+        "draw": "280",
+        "pred": "5-5",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026123",
+        "draw": "200",
+        "pred": "9-9",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026122",
+        "draw": "346",
+        "pred": "9-9",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026121",
+        "draw": "393",
+        "pred": "9-9",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026120",
+        "draw": "734",
+        "pred": "9-9",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026119",
+        "draw": "112",
+        "pred": "9-9",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026118",
+        "draw": "132",
+        "pred": "9-9",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026117",
+        "draw": "411",
+        "pred": "3-3",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026116",
+        "draw": "020",
+        "pred": "3-3",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026115",
+        "draw": "581",
+        "pred": "3-3",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026114",
+        "draw": "864",
+        "pred": "3-3",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026113",
+        "draw": "040",
+        "pred": "3-3",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026112",
+        "draw": "065",
+        "pred": "0-0",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026111",
+        "draw": "863",
+        "pred": "3-3",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026110",
+        "draw": "379",
+        "pred": "3-3",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026109",
+        "draw": "195",
+        "pred": "3-3",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026108",
+        "draw": "671",
+        "pred": "3-3",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026107",
+        "draw": "278",
+        "pred": "7-7",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026106",
+        "draw": "928",
+        "pred": "9-9",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026105",
+        "draw": "631",
+        "pred": "3-3",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026104",
+        "draw": "482",
+        "pred": "3-3",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026103",
+        "draw": "661",
+        "pred": "3-3",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026102",
+        "draw": "420",
+        "pred": "3-3",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026101",
+        "draw": "584",
+        "pred": "3-3",
+        "hit": true,
+        "cum": 100.0
+      },
+      {
+        "issue": "2026100",
+        "draw": "414",
+        "pred": "3-3",
+        "hit": true,
+        "cum": 100.0
+      }
+    ]
+  }
 }
