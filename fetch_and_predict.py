@@ -180,11 +180,41 @@ def compute_prediction(draws):
             i0 = max(0, t-50)
             pf[d] = sum(1 for i in range(i0, t) if d in dsets[i])
         pf50[t] = pf; gap_list[t] = g; dgap_list[t] = dg
+
+    # 当前预测
     s = [0]*10
     for d in range(10):
         s[d] = pf50[N-1][d]/50 - 0.004*gap_list[N-1][d] - 0.0005*dgap_list[N-1][d]
         if dgap_list[N-1][d] > 100: s[d] += 999
     pred_digit = min(range(10), key=lambda d: s[d])
+
+    # 近100期回测
+    back_n = min(100, N-1)
+    bt_start = N - back_n
+    bt_rows = []
+    hits = 0
+    cum_hits = 0
+    for t in range(bt_start, N):
+        sd = [0]*10
+        for d in range(10):
+            sd[d] = pf50[t][d]/50 - 0.004*gap_list[t][d] - 0.0005*dgap_list[t][d]
+            if dgap_list[t][d] > 100: sd[d] += 999
+        picked = min(range(10), key=lambda d: sd[d])
+        actual_digits = [draws[t][1], draws[t][2], draws[t][3]]
+        hit = cnts[t][picked] < 2
+        if hit: hits += 1
+        cum_hits += 1
+        if draw_str := ''.join(str(x) for x in actual_digits):
+            pass
+        bt_rows.append({
+            "issue": draws[t][0],
+            "draw": f"{draws[t][1]}{draws[t][2]}{draws[t][3]}",
+            "pred": f"{picked}-{picked}",
+            "hit": hit,
+            "cum": round(hits/(t-bt_start+1)*100, 1)
+        })
+    bt_rows.reverse()  # 近期在前
+
     last = draws[-1]
     year, num = last[0][:4], int(last[0][4:])
     return {
@@ -192,6 +222,7 @@ def compute_prediction(draws):
         "meaning": f"数字{pred_digit}不会重复出现(对子)",
         "last_issue": last[0], "last_draw": f"{last[1]}{last[2]}{last[3]}",
         "total": N, "updated": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
+        "backtest": {"periods": back_n, "acc": round(hits/back_n*100, 1), "hits": hits, "rows": bt_rows}
     }
 
 
