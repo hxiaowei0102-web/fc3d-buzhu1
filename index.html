@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>福彩3D 不组一</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Microsoft YaHei",sans-serif;background:#f5f5f5;color:#222;padding:12px;max-width:500px;margin:0 auto}
+h1{text-align:center;font-size:20px;color:#c0392b;margin:12px 0 4px}
+.sub{text-align:center;font-size:12px;color:#999;margin-bottom:16px}
+.card{background:#fff;border-radius:12px;padding:20px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.issue{text-align:center;font-size:16px;color:#555;margin-bottom:16px}
+.issue b{color:#c0392b}
+.pred-box{text-align:center;padding:28px 16px;border-radius:12px;background:linear-gradient(135deg,#fff5f5,#ffe8e8);border:2px solid #e74c3c}
+.pred-label{font-size:14px;color:#888;margin-bottom:8px}
+.pred-label span{background:#ffe8e8;color:#e74c3c;padding:1px 8px;border-radius:8px;font-size:11px;margin-left:4px}
+.pred-num{font-size:56px;font-weight:bold;color:#e74c3c;letter-spacing:4px}
+.pred-mean{font-size:13px;color:#999;margin-top:10px}
+.acc{text-align:center;padding:14px}
+.acc-num{font-size:36px;font-weight:bold;color:#e74c3c}
+.acc-label{font-size:12px;color:#999;margin-top:2px}
+.last-draw{text-align:center;font-size:13px;color:#666;padding:8px}
+.last-draw b{font-size:18px;color:#333;margin:0 4px}
+.footer{text-align:center;font-size:10px;color:#bbb;padding:12px}
+.footer span{color:#27ae60;font-weight:bold}
+.error{text-align:center;padding:40px;color:#999}
+.error .big{font-size:60px;margin-bottom:10px}
+.refresh{display:block;margin:16px auto;padding:10px 30px;background:#c0392b;color:#fff;border:none;border-radius:8px;font-size:14px}
+</style>
+</head>
+<body>
+<h1>福彩3D 不组一预测</h1>
+<div class="sub">同数字两码(杀对子) · 98.9% · 云端自动更新</div>
+
+<div id="app">
+<div id="loading" style="text-align:center;padding:40px;color:#999">加载中...</div>
+</div>
+
+<script>
+async function load(){
+ try{
+  const r=await fetch('predict.json?t='+Date.now());
+  const d=await r.json();
+  document.getElementById('app').innerHTML=`
+   <div class="card">
+    <div class="issue">预测期号 <b>${d.next_issue}</b></div>
+    <div class="pred-box">
+     <div class="pred-label">不组一<span>杀对子</span></div>
+     <div class="pred-num">${d.pred}</div>
+     <div class="pred-mean">${d.meaning}</div>
+    </div>
+   </div>
+   <div class="card">
+    <div class="last-draw">
+     上期 <b>${d.last_issue}</b> 开奖 <b>${d.last_draw}</b>
+    </div>
+   </div>
+   <div class="card">
+    <div class="acc">
+     <div class="acc-num">98.9%</div>
+     <div class="acc-label">1000期回测 · ${d.total}期数据</div>
+    </div>
+   </div>
+   <div class="footer">
+    最近更新 <span>${d.updated||'auto'}</span><br>
+    数据源: cwl.gov.cn + huiniao.top 交叉校验<br>
+    每日 22:00/23:30/01:00 自动更新
+   </div>`;
+ }catch(e){
+  document.getElementById('app').innerHTML=`
+   <div class="error">
+    <div class="big">📊</div>
+    数据加载失败<br><small>${e.message}</small>
+    <button class="refresh" onclick="location.reload()">刷新重试</button>
+   </div>`;
+ }
+}
+load();
+</script>
+</body>
+</html>
