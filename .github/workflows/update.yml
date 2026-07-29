@@ -32,6 +32,9 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Install deps
+        run: pip install requests
+
       - name: Fetch & Predict
         run: python fetch_and_predict.py
 
