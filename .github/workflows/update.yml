@@ -33,13 +33,13 @@ jobs:
           python-version: '3.11'
 
       - name: Fetch & Predict
-        run: python cloud/fetch_and_predict.py
+        run: python fetch_and_predict.py
 
-      - name: Copy to root
+      - name: Check output
         run: |
-          cp cloud/index.html index.html
-          cp predict.json predict.json
-          cp data.csv data.csv
+          cat predict.json
+          echo "---"
+          ls -la data.csv index.html predict.json
 
       - name: Commit if changed
         run: |
