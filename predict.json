@@ -1,16 +1,23 @@
 {
-  "next_issue": "2026200",
-  "pred": "1-1",
-  "meaning": "数字1不会重复出现(对子)",
-  "last_issue": "2026199",
-  "last_draw": "591",
-  "total": 8707,
-  "updated": "2026-07-29 11:22 UTC",
+  "next_issue": "2026201",
+  "pred": "7-7",
+  "meaning": "数字7不会重复出现(对子)",
+  "last_issue": "2026200",
+  "last_draw": "912",
+  "total": 8708,
+  "updated": "2026-07-30 07:04 UTC",
   "backtest": {
     "periods": 100,
     "acc": 100.0,
     "hits": 100,
     "rows": [
+      {
+        "issue": "2026200",
+        "draw": "912",
+        "pred": "7-7",
+        "hit": true,
+        "cum": 100.0
+      },
       {
         "issue": "2026199",
         "draw": "591",
@@ -700,13 +707,6 @@
       {
         "issue": "2026101",
         "draw": "584",
-        "pred": "3-3",
-        "hit": true,
-        "cum": 100.0
-      },
-      {
-        "issue": "2026100",
-        "draw": "414",
         "pred": "3-3",
         "hit": true,
         "cum": 100.0
