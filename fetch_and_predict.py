@@ -1,172 +1,141 @@
 # -*- coding: utf-8 -*-
-"""云端数据抓取 v3 —— 参考百十个项目6源体系, 强化版
+"""云端数据抓取 v2 —— 强化版, 多重数据源+重试+回退
 输出: data.csv (issue,hundreds,tens,ones) + predict.json
 """
-import csv, json, os, re, time, sys
+import csv, json, os, urllib.request, re, time, sys
 from datetime import datetime, timezone
-try:
-    import requests
-    HAS_REQUESTS = True
-except ImportError:
-    HAS_REQUESTS = False
 
 DATA_CSV = "data.csv"
 PREDICT_JSON = "predict.json"
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+UA_GOOGLE = "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
 
-def http_get(url, timeout=15):
-    """requests 优先, urllib 回退"""
-    if HAS_REQUESTS:
+def retry_urlopen(url, headers=None, timeout=15, tries=3):
+    """带重试的urlopen"""
+    for attempt in range(tries):
         try:
-            r = requests.get(url, headers={"User-Agent": UA}, timeout=timeout)
-            if r.status_code == 200:
-                r.encoding = "utf-8"
-                return r.text
-        except:
-            pass
-    try:
-        req = urllib.request.Request(url, headers={"User-Agent": UA})
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
-            return resp.read().decode("utf-8", errors="ignore")
-    except:
-        pass
-    return None
+            req = urllib.request.Request(url, headers=headers or {})
+            return urllib.request.urlopen(req, timeout=timeout)
+        except Exception as e:
+            if attempt == tries - 1:
+                raise
+            time.sleep(2 * (attempt + 1))
 
-# ====== 7数据源(参考百十个项目) ======
-
-def fetch_huiniao():
-    """灰鸟API — 免费, JSON, 最稳定"""
-    url = "https://api.huiniao.top/interface/home/lotteryHistory?type=fcsd&page=1&limit=5"
-    text = http_get(url, timeout=20)
-    if not text: raise Exception("无响应")
-    data = json.loads(text)
-    if data.get("code") != 1: raise Exception(f"code={data.get('code')}")
-    return [(r["code"], r["one"], r["two"], r["three"]) for r in data["data"]["data"]["list"]]
+# ====== 数据源 ======
 
 def fetch_cwl(count=10):
-    """官方API — 可能被限, 作为补充"""
+    """官方API - 支持多UA重试"""
     url = f"https://www.cwl.gov.cn/cwl_admin/front/cwlkj/search/kjxx/findDrawNotice?name=3d&issueCount={count}"
-    text = http_get(url, timeout=20)
-    if not text: raise Exception("无响应")
-    data = json.loads(text)
-    if not data.get("result"): raise Exception("无数据")
-    return [(r["code"], *[int(x) for x in r["red"].split(",")]) for r in data["result"]]
+    for ua in [UA, UA_GOOGLE]:
+        try:
+            req = urllib.request.Request(url, headers={
+                "User-Agent": ua,
+                "Referer": "https://www.cwl.gov.cn/",
+                "Accept": "application/json, text/plain, */*"
+            })
+            data = json.loads(urllib.request.urlopen(req, timeout=20).read())
+            if data.get("result"):
+                return [(r["code"], *[int(x) for x in r["red"].split(",")]) for r in data["result"]]
+        except:
+            continue
+    raise Exception("cwl.gov.cn: 所有UA均失败")
 
-def fetch_apihz():
-    """apihz.cn API — 免费, 稳定备用"""
-    url = "https://api.apihz.cn/api/kaijiang/fc3d/list.php?key=5d6f8a9b2c1e4f7a3b8d9c0e1f2a3b4c&num=5"
-    text = http_get(url, timeout=15)
-    if not text: raise Exception("无响应")
-    data = json.loads(text)
-    items = data.get("data", {}).get("data", [])
-    if not items: raise Exception("无数据")
-    results = []
-    for item in items:
-        nums = item.get("result", "").split(" ")
-        if len(nums) >= 3:
-            results.append((item["code"], int(nums[0]), int(nums[1]), int(nums[2])))
-    return results
-
-def fetch_8200():
-    """8200.cn API"""
-    url = "https://api.8200.cn/hall/fc3d/getFc3dLotteryList?pageNo=1&pageSize=5"
-    text = http_get(url, timeout=15)
-    if not text: raise Exception("无响应")
-    data = json.loads(text)
-    items = data.get("data", {}).get("list", [])
-    if not items: raise Exception("无数据")
-    results = []
-    for item in items:
-        nums = item.get("openCode", "").split(",")
-        if len(nums) >= 3:
-            results.append((item.get("periodNo", ""), int(nums[0]), int(nums[1]), int(nums[2])))
-    return results
-
-def fetch_55128():
-    """55128.cn 网页抓取"""
-    url = "https://www.55128.cn/kjh/fcsd-history-61.htm"
-    text = http_get(url, timeout=15)
-    if not text: raise Exception("无响应")
-    results = []
-    for m in re.finditer(r'(\d{7})\s*</td>\s*<td[^>]*>\s*(\d{4}-\d{2}-\d{2})\s*</td>\s*<td[^>]*>.*?(\d).*?(\d).*?(\d).*?</td>', text, re.DOTALL):
-        results.append((m.group(1), int(m.group(3)), int(m.group(4)), int(m.group(5))))
-    if not results:
-        # 备选模式
-        for m in re.finditer(r'(\d{7}).*?(\d)\s+(\d)\s+(\d)', text, re.DOTALL):
-            results.append((m.group(1), int(m.group(2)), int(m.group(3)), int(m.group(4))))
-    if not results: raise Exception("解析失败")
-    return results
+def fetch_huiniao(count=20):
+    """灰鸟API——免费"""
+    url = f"https://api.huiniao.top/interface/home/lotteryHistory?type=fcsd&page=1&limit={count}"
+    data = json.loads(retry_urlopen(url, {"User-Agent": UA}, timeout=20).read())
+    if data.get("code") != 1:
+        raise Exception(f"huiniao code={data.get('code')}")
+    return [(r["code"], r["one"], r["two"], r["three"]) for r in data["data"]["data"]["list"]]
 
 def fetch_zhcw():
-    """中彩网 zhcw.com"""
-    url = "https://www.zhcw.com/kjxx/fc3d/"
-    text = http_get(url, timeout=15)
-    if not text: raise Exception("无响应")
-    results = []
-    for m in re.finditer(r'(\d{7})期.*?(\d)\s*(\d)\s*(\d)', text.replace('\n',' '), re.DOTALL):
-        results.append((m.group(1), int(m.group(2)), int(m.group(3)), int(m.group(4))))
-    if not results: raise Exception("解析失败")
-    return results
+    """中彩网 - 网页抓取"""
+    url = "https://www.zhcw.com/kjxx/3d/"
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": UA})
+        html = urllib.request.urlopen(req, timeout=15).read().decode("utf-8", errors="ignore")
+        results = []
+        for m in re.finditer(r"(\d{7})期.*?开奖号码.*?(\d)\D+(\d)\D+(\d)", html.replace('\n',''), re.DOTALL):
+            results.append((m.group(1), int(m.group(2)), int(m.group(3)), int(m.group(4))))
+        if results:
+            return results
+    except:
+        pass
+    raise Exception("zhcw.com 解析失败")
 
-def fetch_caijing():
-    """彩经网 cjcp.com.cn"""
-    url = "https://www.cjcp.com.cn/kaijiang/fc3d/"
-    text = http_get(url, timeout=15)
-    if not text: raise Exception("无响应")
-    results = []
-    for m in re.finditer(r'(\d{7})\s*期.*?(\d)\s+(\d)\s+(\d)', text, re.DOTALL):
-        results.append((m.group(1), int(m.group(2)), int(m.group(3)), int(m.group(4))))
-    if not results: raise Exception("解析失败")
-    return results
+def fetch_500com():
+    """500.com - JSON API (CDN, 可能被墙但值得尝试)"""
+    # 500.com has a JSONP API
+    urls = [
+        "https://datachart.500.com/3d/history/newinc/history.php?start=2026195&end=2026200&limit=5",
+    ]
+    for url in urls:
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": UA, "Referer": "https://www.500.com/"})
+            html = urllib.request.urlopen(req, timeout=10).read().decode("utf-8", errors="ignore")
+            # Parse tab-delimited data
+            results = []
+            for line in html.split("\n"):
+                parts = line.strip().split("\t")
+                if len(parts) >= 5 and parts[0].isdigit() and len(parts[0]) == 7:
+                    results.append((parts[0], int(parts[1]), int(parts[2]), int(parts[3])))
+            if results:
+                return results
+        except:
+            continue
+    raise Exception("500.com 失败")
+
 
 # ====== 抓取+交叉校验 ======
 def fetch_with_fallback():
     sources = {
+        "cwl.gov.cn": fetch_cwl,
         "huiniao.top": fetch_huiniao,
-        "cwl.gov.cn": lambda: fetch_cwl(10),
-        "apihz.cn": fetch_apihz,
-        "8200.cn": fetch_8200,
-        "55128.cn": fetch_55128,
         "zhcw.com": fetch_zhcw,
-        "caijing.com": fetch_caijing,
+        "500.com": fetch_500com,
     }
     results_by_source = {}
     for name, fn in sources.items():
         try:
-            rows = fn()
+            rows = fn() if "cwl" not in name else fn(10)
             if rows:
                 results_by_source[name] = rows
                 print(f"  ✓ {name}: {len(rows)}期, 最新{rows[0][0]}:{rows[0][1]}{rows[0][2]}{rows[0][3]}")
         except Exception as e:
-            print(f"  ✗ {name}: {str(e)[:80]}")
+            print(f"  ✗ {name}: {e}")
 
     if not results_by_source:
         print("CRITICAL: ALL SOURCES FAILED")
         sys.exit(1)
 
+    # 交叉校验最新一期
     from collections import Counter
     latest = {k: v[0] for k, v in results_by_source.items()}
     sig = Counter(latest.values())
     best, count = sig.most_common(1)[0]
     print(f"  → {count}/{len(results_by_source)}源一致: {best[0]}:{best[1]}{best[2]}{best[3]}")
+    
     if count < 2:
-        print(f"  ⚠ 仅{count}源可用, 无法交叉校验")
+        print(f"  ⚠ 仅{count}源可用, 无法交叉校验. 使用可用源数据.")
 
+    # 合并所有源的去重数据
     all_rows = {}
     for rows in results_by_source.values():
         for r in rows:
             all_rows[r[0]] = r
     return sorted(all_rows.values(), key=lambda x: x[0])
 
-
 # ====== 不组一预测(同core_v99) ======
 def compute_prediction(draws):
     N = len(draws)
-    cnts = [[0]*10 for _ in range(N)]
+    cnts = []
     for t in range(N):
+        row = [0]*10
         for d in [draws[t][1], draws[t][2], draws[t][3]]:
-            cnts[t][d] += 1
+            row[d] += 1
+        cnts.append(row)
     dsets = [{draws[t][1], draws[t][2], draws[t][3]} for t in range(N)]
+
     pf50 = [None]*N; gap_list = [None]*N; dgap_list = [None]*N
     for t in range(N):
         pf = [0]*10; g = [0]*10; dg = [0]*10
@@ -181,58 +150,35 @@ def compute_prediction(draws):
             pf[d] = sum(1 for i in range(i0, t) if d in dsets[i])
         pf50[t] = pf; gap_list[t] = g; dgap_list[t] = dg
 
-    # 当前预测
     s = [0]*10
     for d in range(10):
         s[d] = pf50[N-1][d]/50 - 0.004*gap_list[N-1][d] - 0.0005*dgap_list[N-1][d]
-        if dgap_list[N-1][d] > 100: s[d] += 999
+        if dgap_list[N-1][d] > 100:
+            s[d] += 999
     pred_digit = min(range(10), key=lambda d: s[d])
-
-    # 近100期回测
-    back_n = min(100, N-1)
-    bt_start = N - back_n
-    bt_rows = []
-    hits = 0
-    cum_hits = 0
-    for t in range(bt_start, N):
-        sd = [0]*10
-        for d in range(10):
-            sd[d] = pf50[t][d]/50 - 0.004*gap_list[t][d] - 0.0005*dgap_list[t][d]
-            if dgap_list[t][d] > 100: sd[d] += 999
-        picked = min(range(10), key=lambda d: sd[d])
-        actual_digits = [draws[t][1], draws[t][2], draws[t][3]]
-        hit = cnts[t][picked] < 2
-        if hit: hits += 1
-        cum_hits += 1
-        if draw_str := ''.join(str(x) for x in actual_digits):
-            pass
-        bt_rows.append({
-            "issue": draws[t][0],
-            "draw": f"{draws[t][1]}{draws[t][2]}{draws[t][3]}",
-            "pred": f"{picked}-{picked}",
-            "hit": hit,
-            "cum": round(hits/(t-bt_start+1)*100, 1)
-        })
-    bt_rows.reverse()  # 近期在前
 
     last = draws[-1]
     year, num = last[0][:4], int(last[0][4:])
+    next_issue = f"{year}{num+1:03d}"
     return {
-        "next_issue": f"{year}{num+1:03d}", "pred": f"{pred_digit}-{pred_digit}",
+        "next_issue": next_issue,
+        "pred": f"{pred_digit}-{pred_digit}",
         "meaning": f"数字{pred_digit}不会重复出现(对子)",
-        "last_issue": last[0], "last_draw": f"{last[1]}{last[2]}{last[3]}",
-        "total": N, "updated": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
-        "backtest": {"periods": back_n, "acc": round(hits/back_n*100, 1), "hits": hits, "rows": bt_rows}
+        "last_issue": last[0],
+        "last_draw": f"{last[1]}{last[2]}{last[3]}",
+        "total": N,
+        "updated": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
     }
 
 
+# ====== 主程序 ======
 if __name__ == "__main__":
-    import urllib.request  # for fallback in http_get
-    print(f"=== FC3D Cloud Update v3 === {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M')} UTC")
-    print(f"requests: {'available' if HAS_REQUESTS else 'unavailable (urllib fallback)'}")
+    print(f"=== FC3D Cloud Update v2 === {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M')} UTC")
     run_num = os.environ.get('GITHUB_RUN_NUMBER', 'local')
-    print(f"Run #{run_num}\n")
+    attempt = os.environ.get('GITHUB_RUN_ATTEMPT', '1')
+    print(f"Run #{run_num}  Attempt {attempt}\n")
 
+    # 加载已有数据
     existing = {}
     if os.path.exists(DATA_CSV):
         with open(DATA_CSV, encoding="utf-8") as f:
@@ -240,12 +186,14 @@ if __name__ == "__main__":
                 existing[row["issue"]] = (int(row["hundreds"]), int(row["tens"]), int(row["ones"]))
     print(f"Existing: {len(existing)} periods")
 
-    print("\nFetching from 7 sources...")
+    print("\nFetching new data from multiple sources...")
     new_data = fetch_with_fallback()
+
     for r in new_data:
         existing[r[0]] = (r[1], r[2], r[3])
 
     all_sorted = sorted([(iss, h, t, o) for iss, (h, t, o) in existing.items()], key=lambda x: x[0])
+
     old_issues = set()
     if os.path.exists(DATA_CSV):
         with open(DATA_CSV, encoding="utf-8") as f:
@@ -254,10 +202,13 @@ if __name__ == "__main__":
     new_added = [r for r in all_sorted if r[0] not in old_issues]
 
     with open(DATA_CSV, "w", encoding="utf-8", newline="") as f:
-        w = csv.writer(f); w.writerow(["issue", "hundreds", "tens", "ones"])
-        for r in all_sorted: w.writerow(r)
+        w = csv.writer(f)
+        w.writerow(["issue", "hundreds", "tens", "ones"])
+        for r in all_sorted:
+            w.writerow(r)
     print(f"\nTotal: {len(all_sorted)} periods, New: {len(new_added)}")
-    for r in new_added: print(f"  + {r[0]}: {r[1]}{r[2]}{r[3]}")
+    for r in new_added:
+        print(f"  + {r[0]}: {r[1]}{r[2]}{r[3]}")
 
     print("\nComputing prediction...")
     pred = compute_prediction(all_sorted)
