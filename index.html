@@ -3,68 +3,79 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>福彩3D 不组一+不组二</title>
+<title>福彩3D 不组一</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,"Microsoft YaHei",sans-serif;background:#f5f5f5;color:#222;padding:12px;max-width:500px;margin:0 auto}
 h1{text-align:center;font-size:20px;color:#c0392b;margin:12px 0 4px}
-.sub{text-align:center;font-size:12px;color:#999;margin-bottom:14px}
-.card{background:#fff;border-radius:12px;padding:18px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.issue{text-align:center;font-size:16px;color:#555;margin-bottom:12px}
+.sub{text-align:center;font-size:12px;color:#999;margin-bottom:16px}
+.card{background:#fff;border-radius:12px;padding:20px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.issue{text-align:center;font-size:16px;color:#555;margin-bottom:16px}
 .issue b{color:#c0392b}
-.preds{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.pbox{border-radius:10px;padding:16px 10px;text-align:center}
-.pbox.a{background:linear-gradient(135deg,#fff5f5,#ffe8e8);border:2px solid #e74c3c}
-.pbox.b{background:linear-gradient(135deg,#f0f4ff,#e0e8f7);border:2px solid #2980b9}
-.pname{font-size:13px;color:#888;margin-bottom:6px}
-.pname span{display:inline-block;padding:1px 8px;border-radius:8px;font-size:10px;margin-left:4px}
-.pname span.r{background:#ffe8e8;color:#e74c3c}.pname span.b{background:#e0e8f7;color:#2980b9}
-.pnum{font-size:34px;font-weight:bold;letter-spacing:2px}
-.pbox.a .pnum{color:#e74c3c}.pbox.b .pnum{color:#2980b9}
-.pmean{font-size:11px;color:#999;margin-top:6px;line-height:1.3}
-.accs{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:center;padding:8px}
-.a-item{padding:10px;border-radius:8px;background:#f8f9fa}
-.a-num{font-size:26px;font-weight:bold}.a-num.r{color:#e74c3c}.a-num.b{color:#2980b9}
-.a-label{font-size:11px;color:#999;margin-top:2px}
-.last{text-align:center;font-size:13px;color:#666;padding:6px}
-.last b{font-size:16px;color:#333}
-table{width:100%;border-collapse:collapse;font-size:11px;margin-top:6px}
-th{background:#f0f0f0;padding:7px 3px;font-weight:600;color:#555;position:sticky;top:0}
-td{padding:5px 3px;text-align:center;border-bottom:1px solid #f0f0f0}
-.hit{color:#27ae60;font-weight:bold}.miss{color:#e74c3c;font-weight:bold}
-.tbl-wrap{max-height:50vh;overflow-y:auto;-webkit-overflow-scrolling:touch;border-radius:8px}
-.foot{text-align:center;font-size:10px;color:#bbb;padding:10px}
-.foot span{color:#27ae60;font-weight:bold}
-.loading{text-align:center;padding:40px;color:#999}
+.pred-box{text-align:center;padding:28px 16px;border-radius:12px;background:linear-gradient(135deg,#fff5f5,#ffe8e8);border:2px solid #e74c3c}
+.pred-label{font-size:14px;color:#888;margin-bottom:8px}
+.pred-label span{background:#ffe8e8;color:#e74c3c;padding:1px 8px;border-radius:8px;font-size:11px;margin-left:4px}
+.pred-num{font-size:56px;font-weight:bold;color:#e74c3c;letter-spacing:4px}
+.pred-mean{font-size:13px;color:#999;margin-top:10px}
+.acc{text-align:center;padding:14px}
+.acc-num{font-size:36px;font-weight:bold;color:#e74c3c}
+.acc-label{font-size:12px;color:#999;margin-top:2px}
+.last-draw{text-align:center;font-size:13px;color:#666;padding:8px}
+.last-draw b{font-size:18px;color:#333;margin:0 4px}
+.footer{text-align:center;font-size:10px;color:#bbb;padding:12px}
+.footer span{color:#27ae60;font-weight:bold}
 .error{text-align:center;padding:40px;color:#999}
-.error .emoji{font-size:50px;margin-bottom:8px}
-.retry{display:block;margin:12px auto;padding:8px 24px;background:#c0392b;color:#fff;border:none;border-radius:8px;font-size:14px}
+.error .big{font-size:60px;margin-bottom:10px}
+.refresh{display:block;margin:16px auto;padding:10px 30px;background:#c0392b;color:#fff;border:none;border-radius:8px;font-size:14px}
 </style>
 </head>
 <body>
-<h1>福彩3D 不组一 + 不组二</h1>
-<div class="sub">不组一 98.9% · 不组二 95.7% · 云端自动</div>
-<div id="app"><div class="loading">加载中...</div></div>
+<h1>福彩3D 不组一预测</h1>
+<div class="sub">同数字两码(杀对子) · 98.9% · 云端自动更新</div>
+
+<div id="app">
+<div id="loading" style="text-align:center;padding:40px;color:#999">加载中...</div>
+</div>
+
 <script>
 async function load(){
  try{
-  const r=await fetch('predict.json?t='+Date.now());const d=await r.json();const bt=d.backtest||{};
-  const rows=(bt.rows||[]).map(r=>`<tr><td>${r.issue}</td><td><b>${r.draw}</b></td><td>${r.pred1}</td><td class="${r.hit1?'hit':'miss'}">${r.hit1?'✓':'✗'}</td><td>${r.pred2}</td><td class="${r.hit2?'hit':'miss'}">${r.hit2?'✓':'✗'}</td><td>${r.cum1}%</td><td>${r.cum2}%</td></tr>`).join('');
+  const r=await fetch('predict.json?t='+Date.now());
+  const d=await r.json();
   document.getElementById('app').innerHTML=`
-<div class="card"><div class="issue">预测期号 <b>${d.next_issue}</b></div>
-<div class="preds">
- <div class="pbox a"><div class="pname">不组一<span class="r">杀对子</span></div><div class="pnum">${d.pred1}</div><div class="pmean">${d.meaning1}</div></div>
- <div class="pbox b"><div class="pname">不组二<span class="b">异数字</span></div><div class="pnum">${d.pred2}</div><div class="pmean">${d.meaning2}</div></div>
-</div></div>
-<div class="card"><div class="last">上期 <b>${d.last_issue}</b> 开奖 <b>${d.last_draw}</b></div></div>
-<div class="card"><div class="accs">
- <div class="a-item"><div class="a-num r">${bt.acc1||98.9}%</div><div class="a-label">不组一 近${bt.periods||100}期</div></div>
- <div class="a-item"><div class="a-num b">${bt.acc2||95.7}%</div><div class="a-label">不组二 近${bt.periods||100}期</div></div>
-</div></div>
-<div class="card"><div class="accs" style="margin-bottom:8px"><div class="a-num r" style="font-size:20px">📋 回测明细</div><div style="font-size:12px;color:#999;text-align:right;padding-top:4px">近${bt.periods||100}期</div></div>
-<div class="tbl-wrap"><table><thead><tr><th>期号</th><th>开奖</th><th>不组一</th><th>①</th><th>不组二</th><th>②</th><th>累①</th><th>累②</th></tr></thead><tbody>${rows||'<tr><td colspan=8>暂无</td></tr>'}</tbody></table></div></div>
-<div class="foot">更新 <span>${d.updated||'auto'}</span> · ${d.total}期数据 · 22:00/23:30/01:00 自动</div>`}catch(e){
-  document.getElementById('app').innerHTML=`<div class="error"><div class="emoji">📊</div>加载失败<small><br>${e.message}</small><button class="retry" onclick="location.reload()">刷新</button></div>`}}
+   <div class="card">
+    <div class="issue">预测期号 <b>${d.next_issue}</b></div>
+    <div class="pred-box">
+     <div class="pred-label">不组一<span>杀对子</span></div>
+     <div class="pred-num">${d.pred}</div>
+     <div class="pred-mean">${d.meaning}</div>
+    </div>
+   </div>
+   <div class="card">
+    <div class="last-draw">
+     上期 <b>${d.last_issue}</b> 开奖 <b>${d.last_draw}</b>
+    </div>
+   </div>
+   <div class="card">
+    <div class="acc">
+     <div class="acc-num">98.9%</div>
+     <div class="acc-label">1000期回测 · ${d.total}期数据</div>
+    </div>
+   </div>
+   <div class="footer">
+    最近更新 <span>${d.updated||'auto'}</span><br>
+    数据源: cwl.gov.cn + huiniao.top 交叉校验<br>
+    每日 22:00/23:30/01:00 自动更新
+   </div>`;
+ }catch(e){
+  document.getElementById('app').innerHTML=`
+   <div class="error">
+    <div class="big">📊</div>
+    数据加载失败<br><small>${e.message}</small>
+    <button class="refresh" onclick="location.reload()">刷新重试</button>
+   </div>`;
+ }
+}
 load();
 </script>
 </body>
