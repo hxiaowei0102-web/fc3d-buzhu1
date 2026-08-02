@@ -1,13 +1,13 @@
 {
   "next_issue": "2026204",
   "pred1": "7-7",
-  "meaning1": "数字7不重复",
+  "meaning1": "数字7不会重复出现(对子)",
   "pred2": "0-7",
   "meaning2": "数字0和7不同时出现",
   "last_issue": "2026203",
   "last_draw": "435",
   "total": 8711,
-  "updated": "2026-08-02 04:25 UTC",
+  "updated": "2026-08-02 04:29 UTC",
   "backtest": {
     "periods": 100,
     "acc1": 100.0,
