@@ -1,0 +1,59 @@
+name: FC3D 不组预测每日更新
+
+on:
+  schedule:
+    - cron: '0 14 * * *'
+    - cron: '30 15 * * *'
+    - cron: '0 17 * * *'
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 安装依赖
+        run: pip install requests --quiet
+
+      - name: 运行云端更新
+        run: python fetch_and_predict.py
+
+      - name: 提交变更
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add data.csv predict.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "无变更"
+          else
+            git commit -m "auto $(TZ='Asia/Shanghai' date +'%Y-%m-%d %H:%M')"
+            git push origin master
+          fi
+
+      - name: 上传 Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+          name: github-pages
+
+      - name: 部署到 GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

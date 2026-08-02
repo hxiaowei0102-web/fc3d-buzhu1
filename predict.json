@@ -1,0 +1,1020 @@
+{
+  "next_issue": "2026203",
+  "pred1": "7-7",
+  "meaning1": "数字7不会重复出现(对子)",
+  "pred2": "0-7",
+  "meaning2": "数字0和7不同时出现",
+  "last_issue": "2026202",
+  "last_draw": "988",
+  "total": 8710,
+  "updated": "2026-08-01 12:59 UTC",
+  "backtest": {
+    "periods": 100,
+    "acc1": 100.0,
+    "acc2": 99.0,
+    "hits1": 100,
+    "hits2": 99,
+    "rows": [
+      {
+        "issue": "2026202",
+        "draw": "988",
+        "pred1": "7-7",
+        "hit1": true,
+        "pred2": "0-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 99.0
+      },
+      {
+        "issue": "2026201",
+        "draw": "321",
+        "pred1": "7-7",
+        "hit1": true,
+        "pred2": "0-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 99.0
+      },
+      {
+        "issue": "2026200",
+        "draw": "912",
+        "pred1": "7-7",
+        "hit1": true,
+        "pred2": "0-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 99.0
+      },
+      {
+        "issue": "2026199",
+        "draw": "591",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "1-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 99.0
+      },
+      {
+        "issue": "2026198",
+        "draw": "685",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "1-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 99.0
+      },
+      {
+        "issue": "2026197",
+        "draw": "232",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "1-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.9
+      },
+      {
+        "issue": "2026196",
+        "draw": "419",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "1-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.9
+      },
+      {
+        "issue": "2026195",
+        "draw": "275",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "1-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.9
+      },
+      {
+        "issue": "2026194",
+        "draw": "283",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "1-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.9
+      },
+      {
+        "issue": "2026193",
+        "draw": "254",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "1-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.9
+      },
+      {
+        "issue": "2026192",
+        "draw": "425",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "4-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.9
+      },
+      {
+        "issue": "2026191",
+        "draw": "906",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "4-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.9
+      },
+      {
+        "issue": "2026190",
+        "draw": "026",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "4-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.9
+      },
+      {
+        "issue": "2026189",
+        "draw": "558",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "4-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.9
+      },
+      {
+        "issue": "2026188",
+        "draw": "969",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "4-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.8
+      },
+      {
+        "issue": "2026187",
+        "draw": "023",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "4-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.8
+      },
+      {
+        "issue": "2026186",
+        "draw": "045",
+        "pred1": "4-4",
+        "hit1": true,
+        "pred2": "4-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.8
+      },
+      {
+        "issue": "2026185",
+        "draw": "397",
+        "pred1": "4-4",
+        "hit1": true,
+        "pred2": "4-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.8
+      },
+      {
+        "issue": "2026184",
+        "draw": "902",
+        "pred1": "4-4",
+        "hit1": true,
+        "pred2": "4-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.8
+      },
+      {
+        "issue": "2026183",
+        "draw": "923",
+        "pred1": "4-4",
+        "hit1": true,
+        "pred2": "4-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.8
+      },
+      {
+        "issue": "2026182",
+        "draw": "662",
+        "pred1": "4-4",
+        "hit1": true,
+        "pred2": "4-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.8
+      },
+      {
+        "issue": "2026181",
+        "draw": "818",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "4-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.7
+      },
+      {
+        "issue": "2026180",
+        "draw": "520",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "4-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.7
+      },
+      {
+        "issue": "2026179",
+        "draw": "993",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "4-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.7
+      },
+      {
+        "issue": "2026178",
+        "draw": "266",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "4-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.7
+      },
+      {
+        "issue": "2026177",
+        "draw": "808",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "0-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.7
+      },
+      {
+        "issue": "2026176",
+        "draw": "269",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "7-9",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.6
+      },
+      {
+        "issue": "2026175",
+        "draw": "421",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "4-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.6
+      },
+      {
+        "issue": "2026174",
+        "draw": "618",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "1-9",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.6
+      },
+      {
+        "issue": "2026173",
+        "draw": "677",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "4-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.6
+      },
+      {
+        "issue": "2026172",
+        "draw": "445",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "4-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.6
+      },
+      {
+        "issue": "2026171",
+        "draw": "134",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "4-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.6
+      },
+      {
+        "issue": "2026170",
+        "draw": "805",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "4-5",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.5
+      },
+      {
+        "issue": "2026169",
+        "draw": "832",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "4-5",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.5
+      },
+      {
+        "issue": "2026168",
+        "draw": "130",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "1-4",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.5
+      },
+      {
+        "issue": "2026167",
+        "draw": "631",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "1-4",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.5
+      },
+      {
+        "issue": "2026166",
+        "draw": "900",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "1-4",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.4
+      },
+      {
+        "issue": "2026165",
+        "draw": "424",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "1-4",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.4
+      },
+      {
+        "issue": "2026164",
+        "draw": "690",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "1-4",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.4
+      },
+      {
+        "issue": "2026163",
+        "draw": "537",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "1-4",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.4
+      },
+      {
+        "issue": "2026162",
+        "draw": "585",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "1-4",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.3
+      },
+      {
+        "issue": "2026161",
+        "draw": "529",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "0-5",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.3
+      },
+      {
+        "issue": "2026160",
+        "draw": "332",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "0-5",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.3
+      },
+      {
+        "issue": "2026159",
+        "draw": "995",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "0-5",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.2
+      },
+      {
+        "issue": "2026158",
+        "draw": "178",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "0-5",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.2
+      },
+      {
+        "issue": "2026157",
+        "draw": "327",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "3-5",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.2
+      },
+      {
+        "issue": "2026156",
+        "draw": "162",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "3-5",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.1
+      },
+      {
+        "issue": "2026155",
+        "draw": "409",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "3-5",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.1
+      },
+      {
+        "issue": "2026154",
+        "draw": "377",
+        "pred1": "1-1",
+        "hit1": true,
+        "pred2": "3-5",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.1
+      },
+      {
+        "issue": "2026153",
+        "draw": "887",
+        "pred1": "5-5",
+        "hit1": true,
+        "pred2": "3-5",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.0
+      },
+      {
+        "issue": "2026152",
+        "draw": "220",
+        "pred1": "5-5",
+        "hit1": true,
+        "pred2": "3-5",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.0
+      },
+      {
+        "issue": "2026151",
+        "draw": "631",
+        "pred1": "5-5",
+        "hit1": true,
+        "pred2": "3-5",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 98.0
+      },
+      {
+        "issue": "2026150",
+        "draw": "720",
+        "pred1": "5-5",
+        "hit1": true,
+        "pred2": "3-5",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 97.9
+      },
+      {
+        "issue": "2026149",
+        "draw": "696",
+        "pred1": "5-5",
+        "hit1": true,
+        "pred2": "3-5",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 97.9
+      },
+      {
+        "issue": "2026148",
+        "draw": "408",
+        "pred1": "5-5",
+        "hit1": true,
+        "pred2": "0-1",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 97.8
+      },
+      {
+        "issue": "2026147",
+        "draw": "712",
+        "pred1": "5-5",
+        "hit1": true,
+        "pred2": "0-1",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 97.8
+      },
+      {
+        "issue": "2026146",
+        "draw": "464",
+        "pred1": "5-5",
+        "hit1": true,
+        "pred2": "0-1",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 97.7
+      },
+      {
+        "issue": "2026145",
+        "draw": "279",
+        "pred1": "5-5",
+        "hit1": true,
+        "pred2": "0-1",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 97.7
+      },
+      {
+        "issue": "2026144",
+        "draw": "726",
+        "pred1": "5-5",
+        "hit1": true,
+        "pred2": "0-1",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 97.6
+      },
+      {
+        "issue": "2026143",
+        "draw": "376",
+        "pred1": "3-3",
+        "hit1": true,
+        "pred2": "0-1",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 97.6
+      },
+      {
+        "issue": "2026142",
+        "draw": "894",
+        "pred1": "3-3",
+        "hit1": true,
+        "pred2": "0-1",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 97.5
+      },
+      {
+        "issue": "2026141",
+        "draw": "397",
+        "pred1": "3-3",
+        "hit1": true,
+        "pred2": "1-3",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 97.4
+      },
+      {
+        "issue": "2026140",
+        "draw": "285",
+        "pred1": "3-3",
+        "hit1": true,
+        "pred2": "1-3",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 97.4
+      },
+      {
+        "issue": "2026139",
+        "draw": "286",
+        "pred1": "3-3",
+        "hit1": true,
+        "pred2": "1-3",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 97.3
+      },
+      {
+        "issue": "2026138",
+        "draw": "790",
+        "pred1": "3-3",
+        "hit1": true,
+        "pred2": "0-1",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 97.2
+      },
+      {
+        "issue": "2026137",
+        "draw": "165",
+        "pred1": "3-3",
+        "hit1": true,
+        "pred2": "0-1",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 97.1
+      },
+      {
+        "issue": "2026136",
+        "draw": "889",
+        "pred1": "5-5",
+        "hit1": true,
+        "pred2": "1-9",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 97.1
+      },
+      {
+        "issue": "2026135",
+        "draw": "487",
+        "pred1": "5-5",
+        "hit1": true,
+        "pred2": "1-9",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 97.0
+      },
+      {
+        "issue": "2026134",
+        "draw": "654",
+        "pred1": "5-5",
+        "hit1": true,
+        "pred2": "1-9",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 96.9
+      },
+      {
+        "issue": "2026133",
+        "draw": "080",
+        "pred1": "5-5",
+        "hit1": true,
+        "pred2": "0-1",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 96.8
+      },
+      {
+        "issue": "2026132",
+        "draw": "756",
+        "pred1": "5-5",
+        "hit1": true,
+        "pred2": "0-1",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 96.7
+      },
+      {
+        "issue": "2026131",
+        "draw": "598",
+        "pred1": "5-5",
+        "hit1": true,
+        "pred2": "1-9",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 96.6
+      },
+      {
+        "issue": "2026130",
+        "draw": "267",
+        "pred1": "5-5",
+        "hit1": true,
+        "pred2": "5-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 96.4
+      },
+      {
+        "issue": "2026129",
+        "draw": "023",
+        "pred1": "5-5",
+        "hit1": true,
+        "pred2": "2-5",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 96.3
+      },
+      {
+        "issue": "2026128",
+        "draw": "776",
+        "pred1": "5-5",
+        "hit1": true,
+        "pred2": "5-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 96.2
+      },
+      {
+        "issue": "2026127",
+        "draw": "700",
+        "pred1": "7-7",
+        "hit1": true,
+        "pred2": "5-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 96.0
+      },
+      {
+        "issue": "2026126",
+        "draw": "846",
+        "pred1": "7-7",
+        "hit1": true,
+        "pred2": "5-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 95.8
+      },
+      {
+        "issue": "2026125",
+        "draw": "954",
+        "pred1": "5-5",
+        "hit1": true,
+        "pred2": "5-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 95.7
+      },
+      {
+        "issue": "2026124",
+        "draw": "280",
+        "pred1": "5-5",
+        "hit1": true,
+        "pred2": "5-7",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 95.5
+      },
+      {
+        "issue": "2026123",
+        "draw": "200",
+        "pred1": "9-9",
+        "hit1": true,
+        "pred2": "0-9",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 95.2
+      },
+      {
+        "issue": "2026122",
+        "draw": "346",
+        "pred1": "9-9",
+        "hit1": true,
+        "pred2": "0-9",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 95.0
+      },
+      {
+        "issue": "2026121",
+        "draw": "393",
+        "pred1": "9-9",
+        "hit1": true,
+        "pred2": "0-9",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 94.7
+      },
+      {
+        "issue": "2026120",
+        "draw": "734",
+        "pred1": "9-9",
+        "hit1": true,
+        "pred2": "0-9",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 94.4
+      },
+      {
+        "issue": "2026119",
+        "draw": "112",
+        "pred1": "9-9",
+        "hit1": true,
+        "pred2": "0-9",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 94.1
+      },
+      {
+        "issue": "2026118",
+        "draw": "132",
+        "pred1": "9-9",
+        "hit1": true,
+        "pred2": "0-3",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 93.8
+      },
+      {
+        "issue": "2026117",
+        "draw": "411",
+        "pred1": "3-3",
+        "hit1": true,
+        "pred2": "3-4",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 93.3
+      },
+      {
+        "issue": "2026116",
+        "draw": "020",
+        "pred1": "3-3",
+        "hit1": true,
+        "pred2": "0-3",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 92.9
+      },
+      {
+        "issue": "2026115",
+        "draw": "581",
+        "pred1": "3-3",
+        "hit1": true,
+        "pred2": "2-5",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 92.3
+      },
+      {
+        "issue": "2026114",
+        "draw": "864",
+        "pred1": "3-3",
+        "hit1": true,
+        "pred2": "2-5",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 91.7
+      },
+      {
+        "issue": "2026113",
+        "draw": "040",
+        "pred1": "3-3",
+        "hit1": true,
+        "pred2": "0-3",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 90.9
+      },
+      {
+        "issue": "2026112",
+        "draw": "065",
+        "pred1": "0-0",
+        "hit1": true,
+        "pred2": "0-5",
+        "hit2": false,
+        "cum1": 100.0,
+        "cum2": 90.0
+      },
+      {
+        "issue": "2026111",
+        "draw": "863",
+        "pred1": "3-3",
+        "hit1": true,
+        "pred2": "0-3",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 100.0
+      },
+      {
+        "issue": "2026110",
+        "draw": "379",
+        "pred1": "3-3",
+        "hit1": true,
+        "pred2": "0-3",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 100.0
+      },
+      {
+        "issue": "2026109",
+        "draw": "195",
+        "pred1": "3-3",
+        "hit1": true,
+        "pred2": "0-3",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 100.0
+      },
+      {
+        "issue": "2026108",
+        "draw": "671",
+        "pred1": "3-3",
+        "hit1": true,
+        "pred2": "0-3",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 100.0
+      },
+      {
+        "issue": "2026107",
+        "draw": "278",
+        "pred1": "7-7",
+        "hit1": true,
+        "pred2": "7-9",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 100.0
+      },
+      {
+        "issue": "2026106",
+        "draw": "928",
+        "pred1": "9-9",
+        "hit1": true,
+        "pred2": "7-9",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 100.0
+      },
+      {
+        "issue": "2026105",
+        "draw": "631",
+        "pred1": "3-3",
+        "hit1": true,
+        "pred2": "3-9",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 100.0
+      },
+      {
+        "issue": "2026104",
+        "draw": "482",
+        "pred1": "3-3",
+        "hit1": true,
+        "pred2": "3-9",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 100.0
+      },
+      {
+        "issue": "2026103",
+        "draw": "661",
+        "pred1": "3-3",
+        "hit1": true,
+        "pred2": "3-9",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 100.0
+      }
+    ]
+  }
+}
