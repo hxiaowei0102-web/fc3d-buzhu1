@@ -7,6 +7,10 @@ on:
     - cron: '0 17 * * *'
   workflow_dispatch:
 
+concurrency:
+  group: fc3d-update
+  cancel-in-progress: false
+
 permissions:
   contents: write
   pages: write

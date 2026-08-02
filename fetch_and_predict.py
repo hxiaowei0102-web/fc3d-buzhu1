@@ -59,8 +59,11 @@ def fetch_huiniao(count=5):
     return [(r["code"], r["one"], r["two"], r["three"]) for r in data["data"]["data"]["list"]]
 
 def fetch_apihz(count=5):
-    """2. apihz API (带key鉴权)"""
-    K = "5d6f8a9b2c1e4f7a3b8d9c0e1f2a3b4c"
+    """2. apihz API (带key鉴权, key从环境变量APIHZ_KEY读取, 避免硬编码泄露)"""
+    import os
+    K = os.environ.get("APIHZ_KEY", "")
+    if not K:  # 无key时跳过(避免404噪音)
+        raise Exception("无APIHZ_KEY")
     url = f"https://api.apihz.cn/api/kaijiang/fc3d/list.php?key={K}&num={count}"
     text = http_get(url, timeout=15)
     if not text: raise Exception("无响应")
@@ -236,7 +239,9 @@ def compute_predictions(draws):
     bt_rows.reverse()
 
     last = draws[-1]
-    year, num = last[0][:4], int(last[0][4:])
+    year, num = int(last[0][:4]), int(last[0][4:])
+    if num >= 999:  # 跨年安全: 满999进下一年001
+        year += 1; num = 0
     return {
         "next_issue": f"{year}{num+1:03d}",
         "pred1": f"{d1}-{d1}", "meaning1": f"数字{d1}不会重复出现(对子)",
