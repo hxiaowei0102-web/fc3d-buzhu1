@@ -31,10 +31,26 @@ def http_get(url, timeout=15):
     except: pass
     return None
 
-# ====== 6数据源 (同百十个云更新) ======
+# ====== 数据源 (参考老板清单: 灰鸟/17500/apihz/中彩) ======
+
+def fetch_17500():
+    """0. 17500.cn 官方级全量TXT (2002至今, 权威基准, 带全历史)"""
+    url = "https://www.17500.cn/getData/3d.TXT"
+    text = http_get(url, timeout=30)
+    if not text: raise Exception("无响应")
+    results = []
+    for line in text.splitlines():
+        parts = line.strip().split()
+        if len(parts) >= 5 and parts[0].isdigit() and len(parts[0]) == 7:
+            try:
+                results.append((parts[0], int(parts[2]), int(parts[3]), int(parts[4])))
+            except: continue
+    if not results: raise Exception("解析失败")
+    results.sort(key=lambda x: int(x[0]))  # 期号升序
+    return results
 
 def fetch_huiniao(count=5):
-    """1. 灰鸟API (HTTP, 非HTTPS!)"""
+    """1. 灰鸟API (HTTP, 非HTTPS!, 带next_code跨年安全)"""
     url = f"http://api.huiniao.top/interface/home/lotteryHistory?type=fcsd&page=1&limit={count}"
     text = http_get(url, timeout=20)
     if not text: raise Exception("无响应")
@@ -110,6 +126,7 @@ def fetch_caijing():
 # ====== 抓取+交叉校验 ======
 def fetch_with_fallback():
     sources = {
+        "17500.cn(全量)": fetch_17500,
         "huiniao.top": fetch_huiniao,
         "apihz.cn": fetch_apihz,
         "zhcw.com": fetch_zhcw,
@@ -123,7 +140,9 @@ def fetch_with_fallback():
             rows = fn()
             if rows:
                 results_by_source[name] = rows
-                print(f"  + {name}: {len(rows)}条, 最新{rows[0][0]}:{rows[0][1]}{rows[0][2]}{rows[0][3]}")
+                rows.sort(key=lambda x: int(x[0]))  # 统一期号升序
+                latest = rows[-1]  # 最新一期
+                print(f"  + {name}: {len(rows)}条, 最新{latest[0]}:{latest[1]}{latest[2]}{latest[3]}")
         except Exception as e:
             print(f"  - {name}: {str(e)[:60]}")
 
@@ -132,7 +151,7 @@ def fetch_with_fallback():
         sys.exit(1)
 
     from collections import Counter
-    latest = {k: v[0] for k, v in results_by_source.items()}
+    latest = {k: v[-1] for k, v in results_by_source.items()}
     best, count = Counter(latest.values()).most_common(1)[0]
     print(f"  -> {count}/{len(results_by_source)}源一致: {best[0]}:{best[1]}{best[2]}{best[3]}")
     if count < 2:
@@ -142,7 +161,7 @@ def fetch_with_fallback():
     for rows in results_by_source.values():
         for r in rows:
             all_rows[r[0]] = r
-    return sorted(all_rows.values(), key=lambda x: x[0])
+    return sorted(all_rows.values(), key=lambda x: int(x[0]))
 
 
 # ====== 不组一 + 不组二 双路预测 ======
@@ -240,7 +259,7 @@ if __name__ == "__main__":
                 existing[row["issue"]] = (int(row["hundreds"]), int(row["tens"]), int(row["ones"]))
     print(f"Existing: {len(existing)} periods")
 
-    print("\nFetching (6-source fallback)...")
+    print("\nFetching (7-source fallback, 17500全量优先)...")
     new_data = fetch_with_fallback()
     for r in new_data: existing[r[0]] = (r[1], r[2], r[3])
 
