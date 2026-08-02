@@ -45,7 +45,7 @@ jobs:
             echo "无变更"
           else
             git commit -m "auto $(TZ='Asia/Shanghai' date +'%Y-%m-%d %H:%M')"
-            git push origin master
+            git push origin main
           fi
 
       - name: 上传 Pages
