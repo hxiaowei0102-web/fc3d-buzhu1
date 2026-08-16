@@ -167,90 +167,23 @@ def fetch_with_fallback():
     return sorted(all_rows.values(), key=lambda x: int(x[0]))
 
 
-# ====== 不组一 + 不组二 双路预测 ======
-PAIRS = [(a, b) for a in range(10) for b in range(a + 1, 10)]
-
+# ====== 不组一 + 不组二 双路预测 (算法统一走 algo_core.py) ======
 def compute_predictions(draws):
+    from algo_core import predict_next, backtest
     N = len(draws)
-    cnts = [[0]*10 for _ in range(N)]
-    for t in range(N):
-        for d in [draws[t][1], draws[t][2], draws[t][3]]:
-            cnts[t][d] += 1
-    dsets = [{draws[t][1], draws[t][2], draws[t][3]} for t in range(N)]
-
-    pf50 = [None]*N; gap = [None]*N; dgap = [None]*N
-    for t in range(N):
-        pf = [0]*10; g = [0]*10; dg = [0]*10
-        for d in range(10):
-            for k in range(1, t+1):
-                if d in dsets[t-k]: g[d] = k; break
-            else: g[d] = t
-            for k in range(1, t+1):
-                if cnts[t-k][d] >= 2: dg[d] = k; break
-            else: dg[d] = t
-            i0 = max(0, t-50); pf[d] = sum(1 for i in range(i0, t) if d in dsets[i])
-        pf50[t] = pf; gap[t] = g; dgap[t] = dg
-
-    # 不组一
-    s1 = [pf50[N-1][d]/50 - 0.004*gap[N-1][d] - 0.0005*dgap[N-1][d] for d in range(10)]
-    for d in range(10):
-        if dgap[N-1][d] > 100: s1[d] += 999
-    d1 = min(range(10), key=lambda d: s1[d])
-
-    # 不组二: 异数字
-    W, LAM, ALPHA = 100, 0.9, 0.1
-    co = Counter(); ind = Counter()
-    for i in range(max(0, N-W), N):
-        wgt = LAM ** (N-1-i)
-        s = dsets[i]
-        for a in s:
-            ind[a] += wgt
-            for b in s:
-                if a < b: co[(a,b)] += wgt
-    d2 = min(PAIRS, key=lambda p: co.get(p, 0) + ALPHA * (ind.get(p[0], 0) + ind.get(p[1], 0)))
-
-    # 近100期回测
-    back_n = min(100, N-1); bt_start = N - back_n; bt_rows = []
-    hits1 = hits2 = 0
-    for t in range(bt_start, N):
-        sd = [pf50[t][d]/50 - 0.004*gap[t][d] - 0.0005*dgap[t][d] for d in range(10)]
-        for d in range(10):
-            if dgap[t][d] > 100: sd[d] += 999
-        pick1 = min(range(10), key=lambda d: sd[d])
-        h1 = cnts[t][pick1] < 2; hits1 += h1
-
-        co2 = Counter(); ind2 = Counter()
-        for i in range(max(0, t-W), t):
-            wgt = LAM ** (t-1-i)
-            s = dsets[i]
-            for a in s:
-                ind2[a] += wgt
-                for b in s:
-                    if a < b: co2[(a,b)] += wgt
-        pick2 = min(PAIRS, key=lambda p: co2.get(p, 0) + ALPHA * (ind2.get(p[0], 0) + ind2.get(p[1], 0)))
-        h2 = pick2[0] not in dsets[t] or pick2[1] not in dsets[t]; hits2 += h2
-
-        bt_rows.append({
-            "issue": draws[t][0], "draw": f"{draws[t][1]}{draws[t][2]}{draws[t][3]}",
-            "pred1": f"{pick1}-{pick1}", "hit1": h1,
-            "pred2": f"{pick2[0]}-{pick2[1]}", "hit2": h2,
-            "cum1": round(hits1/(t-bt_start+1)*100,1), "cum2": round(hits2/(t-bt_start+1)*100,1)
-        })
-    bt_rows.reverse()
-
-    last = draws[-1]
-    year, num = int(last[0][:4]), int(last[0][4:])
-    if num >= 999:  # 跨年安全: 满999进下一年001
-        year += 1; num = 0
-    return {
-        "next_issue": f"{year}{num+1:03d}",
-        "pred1": f"{d1}-{d1}", "meaning1": f"数字{d1}不会重复出现(对子)",
-        "pred2": f"{d2[0]}-{d2[1]}", "meaning2": f"数字{d2[0]}和{d2[1]}不同时出现",
-        "last_issue": last[0], "last_draw": f"{last[1]}{last[2]}{last[3]}",
-        "total": N, "updated": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
-        "backtest": {"periods": back_n, "acc1": round(hits1/back_n*100,1), "acc2": round(hits2/back_n*100,1),
-                     "hits1": hits1, "hits2": hits2, "rows": bt_rows}
+    pred = predict_next(draws)
+    back_n = min(100, N - 1)
+    bt = backtest(draws, back_n)
+    bt["rows"].reverse()  # 云端最新在前
+    pred["total"] = N
+    pred["updated"] = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    pred["backtest"] = {
+        "periods": bt["summary"]["periods"],
+        "acc1": bt["summary"]["acc1"], "acc2": bt["summary"]["acc2"],
+        "hits1": bt["summary"]["hits1"], "hits2": bt["summary"]["hits2"],
+        "rows": bt["rows"],
     }
+    return pred
 
 
 if __name__ == "__main__":
