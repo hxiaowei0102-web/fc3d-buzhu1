@@ -1,13 +1,13 @@
 {
-  "next_issue": "2026224",
-  "pred1": "4-4",
-  "meaning1": "数字4不会重复出现(对子)",
+  "next_issue": "2026225",
+  "pred1": "7-7",
+  "meaning1": "数字7不会重复出现(对子)",
   "pred2": "0-1",
   "meaning2": "数字0和1不同时出现",
-  "last_issue": "2026223",
-  "last_draw": "948",
-  "total": 8731,
-  "updated": "2026-08-21 17:34 UTC",
+  "last_issue": "2026224",
+  "last_draw": "862",
+  "total": 8732,
+  "updated": "2026-08-22 14:10 UTC",
   "backtest": {
     "periods": 100,
     "acc1": 100.0,
@@ -15,6 +15,16 @@
     "hits1": 100,
     "hits2": 99,
     "rows": [
+      {
+        "issue": "2026224",
+        "draw": "862",
+        "pred1": "7-7",
+        "hit1": true,
+        "pred2": "0-1",
+        "hit2": true,
+        "cum1": 100.0,
+        "cum2": 99.0
+      },
       {
         "issue": "2026223",
         "draw": "948",
@@ -63,7 +73,7 @@
         "pred2": "0-6",
         "hit2": true,
         "cum1": 100.0,
-        "cum2": 99.0
+        "cum2": 98.9
       },
       {
         "issue": "2026218",
@@ -998,16 +1008,6 @@
       {
         "issue": "2026125",
         "draw": "954",
-        "pred1": "5-5",
-        "hit1": true,
-        "pred2": "5-7",
-        "hit2": true,
-        "cum1": 100.0,
-        "cum2": 100.0
-      },
-      {
-        "issue": "2026124",
-        "draw": "280",
         "pred1": "5-5",
         "hit1": true,
         "pred2": "5-7",
