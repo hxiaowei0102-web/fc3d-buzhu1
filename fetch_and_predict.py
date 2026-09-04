@@ -16,28 +16,43 @@ PREDICT_JSON = "predict.json"
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
 
 def http_get(url, timeout=15):
-    """requests 优先, urllib 回退 (同百十个)"""
+    """requests 优先(自动跟随302), urllib 回退(手动跟随重定向)"""
     if HAS_REQS:
         try:
-            r = reqs.get(url, headers={"User-Agent": UA}, timeout=timeout)
+            r = reqs.get(url, headers={"User-Agent": UA}, timeout=timeout, allow_redirects=True)
             if r.status_code == 200:
                 r.encoding = "utf-8"
                 return r.text
         except: pass
     try:
+        # urllib: 手动跟随最多3次302, 防数据源换地址后拿不到数据
         req = urllib.request.Request(url, headers={"User-Agent": UA})
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
-            return resp.read().decode("utf-8", errors="ignore")
+        for _ in range(4):
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                final_url = resp.geturl()
+                body = resp.read().decode("utf-8", errors="ignore")
+            if resp.status == 200 or final_url == url or not body.startswith("<html"):
+                return body
+            req = urllib.request.Request(final_url, headers={"User-Agent": UA})
+        return body
     except: pass
     return None
 
 # ====== 数据源 (参考老板清单: 灰鸟/17500/apihz/中彩) ======
 
 def fetch_17500():
-    """0. 17500.cn 官方级全量TXT (2002至今, 权威基准, 带全历史)"""
-    url = "https://www.17500.cn/getData/3d.TXT"
-    text = http_get(url, timeout=30)
-    if not text: raise Exception("无响应")
+    """0. 17500.cn 官方级全量TXT (2002至今, 权威基准, 带全历史)
+    2026-09 站点将 3d.TXT 302 到 data.17500.cn/3d_asc.txt, 此处主用新地址+旧地址双兜底"""
+    urls = [
+        "https://data.17500.cn/3d_asc.txt",          # 新地址(2026-09起)
+        "https://www.17500.cn/getData/3d.TXT",       # 旧地址(302兜底)
+    ]
+    text = None
+    for url in urls:
+        text = http_get(url, timeout=30)
+        if text and not text.startswith("<html"):
+            break
+    if not text or text.startswith("<html"): raise Exception("无响应/重定向失效")
     results = []
     for line in text.splitlines():
         parts = line.strip().split()
