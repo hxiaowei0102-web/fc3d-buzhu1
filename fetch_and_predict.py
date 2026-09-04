@@ -73,6 +73,21 @@ def fetch_huiniao(count=5):
     if data.get("code") != 1: raise Exception(f"code={data.get('code')}")
     return [(r["code"], r["one"], r["two"], r["three"]) for r in data["data"]["data"]["list"]]
 
+def fetch_cwl(count=5):
+    """官方中彩网API cwl.gov.cn (权威源, 2026-09实测正常)"""
+    url = f"https://www.cwl.gov.cn/cwl_admin/front/cwlkj/search/kjxx/findDrawNotice?name=3d&issueCount={count}"
+    text = http_get(url, timeout=15)
+    if not text: raise Exception("无响应")
+    data = json.loads(text)
+    items = data.get("result", [])
+    if not items: raise Exception("无数据")
+    results = []
+    for item in items:
+        nums = item.get("red", "").split(",")
+        if item.get("code") and len(nums) >= 3:
+            results.append((item["code"], int(nums[0]), int(nums[1]), int(nums[2])))
+    return results
+
 def fetch_apihz(count=5):
     """2. apihz API (带key鉴权, key从环境变量APIHZ_KEY读取, 避免硬编码泄露)"""
     import os
@@ -143,11 +158,12 @@ def fetch_caijing():
 
 # ====== 抓取+交叉校验 ======
 def fetch_with_fallback():
+    # 注: zhcw.com页面版已停更(只有2002-2022旧数据, 引入会污染最新记录) → 移除
+    #     8200/55128/彩经 间歇不可用, 保留尝试(失败自动跳过)
     sources = {
         "17500.cn(全量)": fetch_17500,
+        "cwl.gov.cn(官方)": fetch_cwl,
         "huiniao.top": fetch_huiniao,
-        "apihz.cn": fetch_apihz,
-        "zhcw.com": fetch_zhcw,
         "8200.cn": fetch_8200,
         "55128.cn": fetch_55128,
         "caijing.com": fetch_caijing,
